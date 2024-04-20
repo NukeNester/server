@@ -86,9 +86,8 @@ router.get("/getOrderAfterDate", async (req, res) => {
   }
 });
 
-
 // UPDATE (PUT)
-router.put("/updateOrderByID/:id", getOrder, async (req, res) => {
+router.put("/updateOrderByID/:id", async (req, res) => {
   try {
     const { organizationName, dateOrdered, wasteType, quantity, timeToDecay } =
       req.body;
@@ -105,13 +104,19 @@ router.put("/updateOrderByID/:id", getOrder, async (req, res) => {
 });
 
 // DELETE (DELETE)
-router.delete("/deleteOrderByID/:id", getOrder, async (req, res) => {
+router.delete("/deleteOrderByID/:id", async (req, res) => {
   try {
-    await res.order.remove();
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    await order.remove();
     res.json({ message: "Order deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
+
 
 module.exports = router;
