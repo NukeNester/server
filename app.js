@@ -6,9 +6,13 @@ dotenv.config();
 const app = express();
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
@@ -17,7 +21,11 @@ db.once("open", () => {
 });
 
 app.use(express.json()); // Parse JSON request bodies
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // Routes
 const orderRouter = require("./routes/orderRoutes.js");
