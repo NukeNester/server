@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/userModel');
 
 // CREATE (POST)
-router.post('/', async (req, res) => {
+router.post('/createUser', async (req, res) => {
   try {
     const newUser = new User(req.body);
     await newUser.save();
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 });
 
 // READ ALL (GET)
-router.get('/', async (req, res) => {
+router.get('/getAllUser/', async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -24,12 +24,12 @@ router.get('/', async (req, res) => {
 });
 
 // READ ONE (GET)
-router.get('/:id', getUser, (req, res) => {
+router.get('/getUserByID/:id', getUser, (req, res) => {
   res.json(res.user);
 });
 
 // UPDATE (PUT)
-router.put('/:id', getUser, async (req, res) => {
+router.put('/updateOrderByID/:id', getUser, async (req, res) => {
   try {
     const { userID, userEmail, userName, userHashedPassword } = req.body;
     if (userID) res.user.userID = userID;
@@ -44,7 +44,7 @@ router.put('/:id', getUser, async (req, res) => {
 });
 
 // DELETE (DELETE)
-router.delete('/:id', getUser, async (req, res) => {
+router.delete('/deleteOrderByID/:id', getUser, async (req, res) => {
   try {
     await res.user.remove();
     res.json({ message: 'User deleted' });

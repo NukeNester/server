@@ -3,7 +3,7 @@ const router = express.Router();
 const Order = require('../models/orderModel');
 
 // CREATE (POST)
-router.post('/', async (req, res) => {
+router.post('/createOrder', async (req, res) => {
   try {
     const newOrder = new Order(req.body);
     await newOrder.save();
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 });
 
 // READ ALL (GET)
-router.get('/', async (req, res) => {
+router.get('/getAllOrder', async (req, res) => {
   try {
     const orders = await Order.find();
     res.json(orders);
@@ -24,12 +24,12 @@ router.get('/', async (req, res) => {
 });
 
 // READ ONE (GET)
-router.get('/:id', getOrder, (req, res) => {
+router.get('/getOrderByID/:id', getOrder, (req, res) => {
   res.json(res.order);
 });
 
 // UPDATE (PUT)
-router.put('/:id', getOrder, async (req, res) => {
+router.put('/updateOrderByID/:id', getOrder, async (req, res) => {
   try {
     const { organizationName, dateOrdered, wasteType, quantity, timeToDecay } = req.body;
     if (organizationName) res.order.organizationName = organizationName;
@@ -45,7 +45,7 @@ router.put('/:id', getOrder, async (req, res) => {
 });
 
 // DELETE (DELETE)
-router.delete('/:id', getOrder, async (req, res) => {
+router.delete('/deleteOrderByID/:id', getOrder, async (req, res) => {
   try {
     await res.order.remove();
     res.json({ message: 'Order deleted' });
