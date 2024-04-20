@@ -103,6 +103,26 @@ router.put("/updateOrderByID/:id", async (req, res) => {
   }
 });
 
+//UPDATE Status
+router.put("/updateOrderByID/:id/:status", async (req, res) => {
+  const orderId = req.params.id;
+  const newStatus = req.params.status;
+
+  try {
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    order.status = newStatus;
+    await order.save();
+
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // DELETE (DELETE)
 router.delete("/deleteOrderByID/:id", async (req, res) => {
   try {
@@ -116,7 +136,5 @@ router.delete("/deleteOrderByID/:id", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
-
 
 module.exports = router;

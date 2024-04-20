@@ -8,7 +8,8 @@ const orderSchema = new mongoose.Schema({
     quantity: { type: Number, required: true },
     timeToDecay: { type: Date, required: true },
     latitude: { type: Number, required: true },
-    longitude: { type: Number, required: true }
+    longitude: { type: Number, required: true },
+    status: { type: String, enum: ["pending", "disposed"], default: "pending" },
 });
 
 
