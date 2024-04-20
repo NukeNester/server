@@ -40,10 +40,7 @@ router.get("/getOrderByID/:id", async (req, res) => {
 
 //READ WITHIN AREA (GET)
 router.get("/getOrderByArea", async (req, res) => {
-  console.log(req.query);
   const { topLeft, bottomRight } = req.query;
-  console.log(topLeft);
-  console.log(bottomRight);
   try {
     const orders = await Order.find({
       latitude: { $gte: bottomRight[1], $lte: topLeft[1] },
