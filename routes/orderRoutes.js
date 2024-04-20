@@ -4,6 +4,7 @@ const Order = require('../models/orderModel');
 
 // CREATE (POST)
 router.post('/createOrder', async (req, res) => {
+  console.log(req.body)
   try {
     const newOrder = new Order(req.body);
     await newOrder.save();
