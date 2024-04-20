@@ -29,7 +29,7 @@ router.get('/getUserByID/:id', getUser, (req, res) => {
 });
 
 // UPDATE (PUT)
-router.put('/updateOrderByID/:id', getUser, async (req, res) => {
+router.put('/updateUserByID/:id', getUser, async (req, res) => {
   try {
     const { userID, userEmail, userName, userHashedPassword } = req.body;
     if (userID) res.user.userID = userID;
@@ -44,7 +44,7 @@ router.put('/updateOrderByID/:id', getUser, async (req, res) => {
 });
 
 // DELETE (DELETE)
-router.delete('/deleteOrderByID/:id', getUser, async (req, res) => {
+router.delete('/deleteUserByID/:id', getUser, async (req, res) => {
   try {
     await res.user.remove();
     res.json({ message: 'User deleted' });
