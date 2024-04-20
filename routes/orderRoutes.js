@@ -53,8 +53,8 @@ router.get("/getOrderByArea", async (req, res) => {
 });
 
 // READ BY COMPANY NAME (GET)
-router.get("/getOrderByCompany", async (req, res) => {
-  const companyName = req.query.companyName;
+router.get("/getOrderByEmail/:email", async (req, res) => {
+  const companyName = req.params.email;
   try {
     const orders = await Order.find({ organizationName: companyName });
     res.json(orders);
