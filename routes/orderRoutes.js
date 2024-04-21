@@ -104,11 +104,11 @@ router.put("/updateOrderByID/:id", async (req, res) => {
 });
 
 //UPDATE Status
-router.put("/updateOrderByID/:id/:status", async (req, res) => {
+router.put("/updateOrderStatusByID/:id/:status", async (req, res) => {
   const orderId = req.params.id;
   const newStatus = req.params.status;
-
-  try {
+  console.log(req.params);
+  try { 
     const order = await Order.findById(orderId);
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
